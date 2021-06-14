@@ -22,13 +22,13 @@ public class ExpenseDTO {
     @NotNull
     private Double water;
 
-    private Double security;
+    private Double security = 0.0;
 
-    private Double cleaner;
+    private Double cleaner = 0.0;
 
-    private Double lift;
+    private Double lift = 0.0;
 
-    private Double others;
+    private Double others = 0.0;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Double grossIncome;
