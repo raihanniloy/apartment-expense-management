@@ -3,14 +3,16 @@ package com.dsi.starter.flutter_p_o_c.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
 public class ChargeDTO {
 
-    @JsonIgnore
     private Long id;
     private LocalDate date;
+
+    @NotNull
     private Double serviceCharge;
     @JsonIgnore
     private Long userCharges;
