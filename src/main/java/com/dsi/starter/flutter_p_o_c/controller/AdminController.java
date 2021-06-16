@@ -1,5 +1,6 @@
 package com.dsi.starter.flutter_p_o_c.controller;
 
+import com.dsi.starter.flutter_p_o_c.Util.ExpensesUtil;
 import com.dsi.starter.flutter_p_o_c.domain.User;
 import com.dsi.starter.flutter_p_o_c.model.ChargeDTO;
 import com.dsi.starter.flutter_p_o_c.model.ExpenseDTO;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -30,6 +32,9 @@ public class AdminController {
 
     @Autowired
     private ExpenseService expenseService;
+
+    @Autowired
+    private ExpensesUtil expensesUtil;
 
 
 
@@ -123,7 +128,9 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(Model model){
         List<ExpenseDTO> expenseDTOList = expenseService.findAll();
-
+        model.addAttribute("grossExpense", expensesUtil.calculateGrossExpensesFromList(expenseDTOList));
+        model.addAttribute("grossIncome", expensesUtil.calculateGrossIncome(expenseDTOList));
+        model.addAttribute("grossRevenue", expensesUtil.calculateGrossIncome(expenseDTOList) - expensesUtil.calculateGrossExpensesFromList(expenseDTOList));
         return "adminDashboard";
     }
 

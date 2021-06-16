@@ -16,6 +16,20 @@ public class ExpensesUtil {
         return gross;
     }
 
+    public double calculateGrossExpensesFromList(List<ExpenseDTO> expenseDTOList){
+        double gross = expenseDTOList.stream()
+                .map(x -> x.getGrossExpense())
+                .reduce((double) 0, Double::sum);
+        return gross;
+    }
+
+    public double calculateGrossIncome(List<ExpenseDTO> expenseDTOList){
+        double gross = expenseDTOList.stream()
+                .map(x -> x.getGrossIncome())
+                .reduce((double) 0, Double::sum);
+        return gross;
+    }
+
     public double calculateGrossCharges(List<ChargeDTO> chargeDTOS){
         double gross = chargeDTOS.stream()
                 .map(x -> x.getServiceCharge())
