@@ -20,8 +20,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <title>
     User Info
   </title>
@@ -29,16 +29,16 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
   <div class="wrapper">
-    <div class="sidebar">
+    <div class="sidebar" th:fragment="sidebar">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
     -->
@@ -59,8 +59,14 @@
             </a>
           </li>
           <li>
+            <a href="/users">
+              <i class="tim-icons icon-user-run"></i>
+              <p>All Users</p>
+            </a>
+          </li>
+          <li>
             <a href="/allExpenses">
-              <i class="tim-icons icon-single-02"></i>
+              <i class="tim-icons icon-money-coins"></i>
               <p>All Expenses</p>
             </a>
           </li>
@@ -69,7 +75,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent" th:fragment="navbar">
         <div class="container-fluid">
           <div class="navbar-wrapper">
             <div class="navbar-toggle d-inline">
@@ -79,7 +85,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:void(0)">User Details</a>
+            <a class="navbar-brand" href="javascript:void(0)">Admin Dashboard</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -130,10 +136,247 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">Expense Income Summary</h5>
+                    <h2 class="card-title">Performance</h2>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                        <input type="radio" name="options" checked>
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Expenses</span>
+                        <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-single-02"></i>
+                        </span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="1">
+                        <input type="radio" class="d-none d-sm-none" name="options">
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Incomes</span>
+                        <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-gift-2"></i>
+                        </span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="2">
+                        <input type="radio" class="d-none" name="options">
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Revenue</span>
+                        <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-tap-02"></i>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartBig1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Total Shipments</h5>
+                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 763,215</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLinePurple"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Daily Sales</h5>
+                <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="CountryChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Completed Tasks</h5>
+                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLineGreen"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <div class="card card-tasks">
+              <div class="card-header ">
+                <h6 class="title d-inline">Tasks(5)</h6>
+                <p class="card-category d-inline">today</p>
+                <div class="dropdown">
+                  <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
+                    <i class="tim-icons icon-settings-gear-63"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#pablo">Action</a>
+                    <a class="dropdown-item" href="#pablo">Another action</a>
+                    <a class="dropdown-item" href="#pablo">Something else</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body ">
+                <div class="table-full-width table-responsive">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">Update the Documentation</p>
+                        <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="" checked="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">GDPR Compliance</p>
+                        <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">Solve the issues</p>
+                        <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">Release v2.0.0</p>
+                        <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">Export the processed files</p>
+                        <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="">
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+                          </label>
+                        </div>
+                      </td>
+                      <td>
+                        <p class="title">Arival at export process</p>
+                        <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
+                      </td>
+                      <td class="td-actions text-right">
+                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                          <i class="tim-icons icon-pencil"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
             <div class="card ">
               <div class="card-header">
-                <h4 class="card-title"> All Users</h4>
+                <h4 class="card-title"> Simple Table</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -141,110 +384,116 @@
                     <thead class=" text-primary">
                     <tr>
                       <th>
-                        User Id
+                        Name
                       </th>
                       <th>
-                        Username
+                        Country
                       </th>
                       <th>
-                        Is Active
+                        City
                       </th>
-                      <th>
-                        User Role
-                      </th>
-                      <th>
-                        Action
+                      <th class="text-center">
+                        Salary
                       </th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user: ${userInfoList}">
-                      <td th:text="${user.id}" />
-                      <td th:text="${user.username}" />
-                      <td th:text="${user.active}" />
-                      <td th:text="${user.roles}" />
+                    <tr>
                       <td>
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal"><i class="tim-icons icon-simple-add"></i></button>
-
-                        <div class="modal fade" id="myModal" role="dialog">
-                          <div class="modal-dialog modal-xl">
-
-
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                              </div>
-                              <div class="modal-body">
-
-                                <div class="card">
-                                  <div class="card-header">
-                                    <h5 class="title">Add Expenses For User <span th:text="${user.username}"></span></h5>
-                                  </div>
-                                  <div class="card-body">
-                                    <form id="expenses_form" th:action="@{/users/expenses/{id}(id=${user.id})}"
-                                           method="post">
-                                      <div class="row">
-                                        <div class="col-md-6 px-md-1">
-                                          <div class="form-group">
-                                            <label>Rent</label>
-                                            <input type="text" class="form-control" name="rent" placeholder="Rent" th:value="*{expense.rent}">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6 pl-md-1">
-                                          <div class="form-group">
-                                            <label>Electricity Bill</label>
-                                            <input type="email" class="form-control" name="electricity" placeholder="Electricity Bill" th:value="*{expense.electricity}">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-6 pr-md-1">
-                                          <div class="form-group">
-                                            <label>Gass Bill</label>
-                                            <input type="text" class="form-control" name="gas" placeholder="Gas Bill" th:value="*{expense.gas}">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6 pl-md-1">
-                                          <div class="form-group">
-                                            <label>Water Bill</label>
-                                            <input type="text" class="form-control" name="water" placeholder="Water Bill" th:value="*{expense.water}">
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="row">
-                                        <div class="col-md-6 pr-md-1">
-                                          <div class="form-group">
-                                            <label>Security charges</label>
-                                            <input type="text" class="form-control" name="security" placeholder="Security charges" th:value="*{expense.security}">
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6 px-md-1">
-                                          <div class="form-group">
-                                            <label>Lift charges</label>
-                                            <input type="text" class="form-control" name="lift" placeholder="Lift charges" th:value="*{expense.lift}">
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                    </form>
-                                  </div>
-                                  <div class="card-footer">
-                                    <button type="submit" onclick="submitForm()" class="btn btn-fill btn-primary">Save</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                  </div>
-                                </div>
-                                <!--Form code start from here  -->
-
-
-                            </div>
-
-                          </div>
-                        </div>
-
-                        </div>
-                        <button type="button" class="btn btn-default btn-xs"><i class="tim-icons icon-settings"></i></button>
+                        Dakota Rice
+                      </td>
+                      <td>
+                        Niger
+                      </td>
+                      <td>
+                        Oud-Turnhout
+                      </td>
+                      <td class="text-center">
+                        $36,738
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Minerva Hooper
+                      </td>
+                      <td>
+                        Curaçao
+                      </td>
+                      <td>
+                        Sinaai-Waas
+                      </td>
+                      <td class="text-center">
+                        $23,789
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Sage Rodriguez
+                      </td>
+                      <td>
+                        Netherlands
+                      </td>
+                      <td>
+                        Baileux
+                      </td>
+                      <td class="text-center">
+                        $56,142
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Philip Chaney
+                      </td>
+                      <td>
+                        Korea, South
+                      </td>
+                      <td>
+                        Overland Park
+                      </td>
+                      <td class="text-center">
+                        $38,735
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Doris Greene
+                      </td>
+                      <td>
+                        Malawi
+                      </td>
+                      <td>
+                        Feldkirchen in Kärnten
+                      </td>
+                      <td class="text-center">
+                        $63,542
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Mason Porter
+                      </td>
+                      <td>
+                        Chile
+                      </td>
+                      <td>
+                        Gloucester
+                      </td>
+                      <td class="text-center">
+                        $78,615
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        Jon Porter
+                      </td>
+                      <td>
+                        Portugal
+                      </td>
+                      <td>
+                        Gloucester
+                      </td>
+                      <td class="text-center">
+                        $98,615
                       </td>
                     </tr>
                     </tbody>
@@ -255,12 +504,12 @@
           </div>
         </div>
       </div>
-      <footer class="footer">
+      <footer class="footer" th:fragment="footer">
         <div class="container-fluid">
           <ul class="nav">
             <li class="nav-item">
               <a href="javascript:void(0)" class="nav-link">
-                Innovators PayRoll System
+                Innovator's Apartment Expense Tracker System
               </a>
             </li>
             <li class="nav-item">
@@ -326,20 +575,20 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="/assets/js/core/jquery.min.js"></script>
+  <script src="/assets/js/core/popper.min.js"></script>
+  <script src="/assets/js/core/bootstrap.min.js"></script>
+  <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Place this tag in your head or just before your close body tag. -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <script src="/assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="/assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
+  <script src="/assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/assets/demo/demo.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

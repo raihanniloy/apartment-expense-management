@@ -2,6 +2,7 @@ package com.dsi.starter.flutter_p_o_c.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 public class ChargeDTO {
 
     private Long id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @NotNull

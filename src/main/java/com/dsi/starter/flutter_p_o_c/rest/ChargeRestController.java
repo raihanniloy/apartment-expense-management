@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/charges", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ChargeController {
+public class ChargeRestController {
 
     private final ChargeService chargeService;
 
-    public ChargeController(final ChargeService chargeService) {
+    public ChargeRestController(final ChargeService chargeService) {
         this.chargeService = chargeService;
     }
 

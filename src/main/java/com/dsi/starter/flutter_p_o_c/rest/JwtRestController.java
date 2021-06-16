@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-public class JwtController {
+public class JwtRestController {
 
     @Autowired
     private AuthenticationManager authenticationManager;

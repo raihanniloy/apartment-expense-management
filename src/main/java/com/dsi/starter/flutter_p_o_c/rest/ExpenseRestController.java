@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/expenses", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ExpenseController {
+public class ExpenseRestController {
 
     private final ExpenseService expenseService;
 
-    public ExpenseController(final ExpenseService expenseService) {
+    public ExpenseRestController(final ExpenseService expenseService) {
         this.expenseService = expenseService;
     }
 

@@ -1,6 +1,7 @@
 package com.dsi.starter.flutter_p_o_c.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ public class ExpenseDTO {
     private Long id;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @NotNull

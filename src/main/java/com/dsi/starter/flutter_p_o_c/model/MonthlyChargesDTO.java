@@ -1,5 +1,7 @@
 package com.dsi.starter.flutter_p_o_c.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 public class MonthlyChargesDTO {
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     private List<ChargeDTO> chargeDTOList;
