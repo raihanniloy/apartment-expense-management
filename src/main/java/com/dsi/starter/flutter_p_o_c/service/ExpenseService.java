@@ -8,7 +8,9 @@ import com.dsi.starter.flutter_p_o_c.model.ExpenseDTO;
 import com.dsi.starter.flutter_p_o_c.repos.ExpenseRepository;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,37 @@ public class ExpenseService {
 
     public ExpenseIncomeSummaryDTO getAnnualExpenseIncomeSummery(LocalDate startDate, LocalDate endDate){
         List<ExpenseDTO> expenseDTOList = this.findAllByDateRange(startDate, endDate);
+        return getExpenseIncomeSummary(expenseDTOList);
+    }
+
+    public ExpenseIncomeSummaryDTO getAnnualExpenseIncomeSummery(){
+        List<ExpenseDTO> expenseDTOList = this.findAll();
+        return getExpenseIncomeSummary(expenseDTOList);
+    }
+
+    public Map<String, Double> getExpenseIncomeSummaryMap(LocalDate startDate, LocalDate endDate){
+        ExpenseIncomeSummaryDTO expenseIncomeSummaryDTO = this.getAnnualExpenseIncomeSummery(startDate,endDate);
+        return createExpenseIncomeSummaryMap(expenseIncomeSummaryDTO);
+    }
+
+    public Map<String, Double> getExpenseIncomeSummaryMap(){
+        ExpenseIncomeSummaryDTO expenseIncomeSummaryDTO = this.getAnnualExpenseIncomeSummery();
+        return createExpenseIncomeSummaryMap(expenseIncomeSummaryDTO);
+    }
+
+    Map<String, Double> createExpenseIncomeSummaryMap(ExpenseIncomeSummaryDTO expenseIncomeSummaryDTO){
+        Map<String, Double> expenseIncomeSummaryMap = new HashMap<>();
+        expenseIncomeSummaryMap.put("Electricity",expenseIncomeSummaryDTO.getElectricity());
+        expenseIncomeSummaryMap.put("Gas",expenseIncomeSummaryDTO.getGas());
+        expenseIncomeSummaryMap.put("Water",expenseIncomeSummaryDTO.getGas());
+        expenseIncomeSummaryMap.put("Security",expenseIncomeSummaryDTO.getSecurity());
+        expenseIncomeSummaryMap.put("Cleaner",expenseIncomeSummaryDTO.getCleaner());
+        expenseIncomeSummaryMap.put("Lift",expenseIncomeSummaryDTO.getLift());
+        expenseIncomeSummaryMap.put("Others",expenseIncomeSummaryDTO.getOthers());
+        return expenseIncomeSummaryMap;
+    }
+
+    public ExpenseIncomeSummaryDTO getExpenseIncomeSummary(List<ExpenseDTO> expenseDTOList){
         ExpenseIncomeSummaryDTO expenseIncomeSummaryDTO = new ExpenseIncomeSummaryDTO();
         expenseDTOList.stream().forEach(expenseDTO -> {
             expenseIncomeSummaryDTO.setElectricity(expenseIncomeSummaryDTO.getElectricity() + expenseDTO.getElectricity());

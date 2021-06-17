@@ -166,9 +166,9 @@
                                         <td th:type="Date" th:text="${charge.date.getMonth() +'-' + charge.date.getYear()}" />
                                         <td th:text="${charge.serviceCharge}" />
                                         <td>
-                                            <button type="button" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#chargeModal"><i class="tim-icons icon-pencil"></i></button>
+                                            <button type="button" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#chargeModal" th:attrappend="data-target=${charge.id}"><i class="tim-icons icon-pencil"></i></button>
 
-                                            <div class="modal fade" id="chargeModal" role="dialog">
+                                            <div class="modal fade" id="chargeModal" role="dialog" th:attrappend="id=${charge.id}">
                                                 <div class="modal-dialog modal-xl">
 
 
