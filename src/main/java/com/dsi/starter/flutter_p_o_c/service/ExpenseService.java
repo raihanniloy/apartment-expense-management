@@ -8,6 +8,7 @@ import com.dsi.starter.flutter_p_o_c.model.ExpenseDTO;
 import com.dsi.starter.flutter_p_o_c.repos.ExpenseRepository;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class ExpenseService {
                 .stream()
                 .map(expense -> mapToDTO(expense, new ExpenseDTO()))
                 .collect(Collectors.toList());
+        Collections.sort(expenseDTOList);
         expenseDTOList.stream().forEach(expenseDTO -> {
             List<ChargeDTO> chargeDTOS = chargeService.findAllByDate(expenseDTO.getDate(),expenseDTO.getDate());
             expenseDTO.setGrossIncome(expensesUtil.calculateGrossCharges(chargeDTOS));
@@ -51,6 +53,7 @@ public class ExpenseService {
                 .stream()
                 .map(expense -> mapToDTO(expense, new ExpenseDTO()))
                 .collect(Collectors.toList());
+        Collections.sort(expenseDTOList);
         expenseDTOList.stream().forEach(expenseDTO -> {
             List<ChargeDTO> chargeDTOS = chargeService.findAllByDate(expenseDTO.getDate(),expenseDTO.getDate());
             expenseDTO.setGrossIncome(expensesUtil.calculateGrossCharges(chargeDTOS));

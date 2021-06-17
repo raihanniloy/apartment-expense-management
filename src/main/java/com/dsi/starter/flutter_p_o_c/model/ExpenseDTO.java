@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 
 
-public class ExpenseDTO {
+public class ExpenseDTO implements Comparable<ExpenseDTO>{
 
     private Long id;
 
@@ -124,5 +124,10 @@ public class ExpenseDTO {
 
     public void setGrossExpense(Double grossExpense) {
         this.grossExpense = grossExpense;
+    }
+
+    @Override
+    public int compareTo(ExpenseDTO expenseDTO) {
+        return this.date.compareTo(expenseDTO.getDate());
     }
 }
