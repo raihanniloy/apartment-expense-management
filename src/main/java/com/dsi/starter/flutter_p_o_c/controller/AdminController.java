@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -42,21 +43,21 @@ public class AdminController {
     @PostMapping("/users/create")
     public String createUsers(@ModelAttribute("user") UserDTO userDTO){
         Long userId = userService.create(userDTO);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @PostMapping("/users/{id}")
     public String updateUsers(@PathVariable("id") Long id, @ModelAttribute("user") UserDTO userDTO){
         String username = userService.get(id).getUsername();
         userService.update(username, userDTO);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/delete/{id}")
     public String deleteUsers(@PathVariable("id") Long id){
         String username = userService.get(id).getUsername();
         userService.delete(username);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
 
@@ -64,7 +65,7 @@ public class AdminController {
     public String createUserCharges(@PathVariable("id") Long id, @ModelAttribute("charge") ChargeDTO chargeDTO){
         chargeDTO.setUserCharges(id);
         Long chargeId = chargeService.create(chargeDTO);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/users/charges/{id}")
@@ -80,14 +81,14 @@ public class AdminController {
     public String editUserCharges(@PathVariable("id") Long id, @ModelAttribute("charge") ChargeDTO chargeDTO){
         chargeService.update(id, chargeDTO);
         Long userId = chargeService.get(id).getUserCharges();
-        return "redirect:/users/charges/"+userId;
+        return "redirect:/admin/users/charges/"+userId;
     }
 
     @GetMapping("/users/charges/delete/{id}")
     public String deleteUserCharges(@PathVariable("id") Long id){
         Long userId = chargeService.get(id).getUserCharges();
         chargeService.delete(id);
-        return "redirect:/users/charges/"+userId;
+        return "redirect:/admin/users/charges/"+userId;
     }
 
 

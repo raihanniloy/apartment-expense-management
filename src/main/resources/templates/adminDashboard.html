@@ -38,19 +38,19 @@
       </div>
       <ul class="nav">
         <li class="active ">
-          <a href="/dashboard">
+          <a href="/admin/dashboard">
             <i class="tim-icons icon-chart-pie-36"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li>
-          <a href="/users">
+          <a href="/admin/users">
             <i class="tim-icons icon-user-run"></i>
             <p>All Users</p>
           </a>
         </li>
         <li>
-          <a href="/allExpenses">
+          <a href="/admin/allExpenses">
             <i class="tim-icons icon-money-coins"></i>
             <p>All Expenses</p>
           </a>
@@ -127,7 +127,7 @@
               <h5>Choose Date To See Stats!</h5>
             </div>
             <div class="card-body">
-              <form id="expenses_form" th:action="@{/stats/date}"
+              <form id="expenses_form" th:action="@{/admin/stats/date}"
                     method="post">
                 <div class="row">
                   <div class="col-md-6 px-md-1">

@@ -53,19 +53,19 @@
             </div>
             <ul class="nav">
                 <li>
-                    <a href="/dashboard">
+                    <a href="/admin/dashboard">
                         <i class="tim-icons icon-chart-pie-36"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="active ">
-                    <a href="/users">
+                    <a href="/admin/users">
                         <i class="tim-icons icon-user-run"></i>
                         <p>All Users</p>
                     </a>
                 </li>
                 <li>
-                    <a href="/allExpenses">
+                    <a href="/admin/allExpenses">
                         <i class="tim-icons icon-money-coins"></i>
                         <p>All Expenses</p>
                     </a>
@@ -185,7 +185,7 @@
                                                                     <h5 class="title">Edit Charge No. <span th:text="${charge.id}"></span> For User <span th:text="${user.firstName}"></span></h5>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <form id="expenses_form" th:action="@{/users/charges/edit/{id}(id=${charge.id})}"
+                                                                    <form id="expenses_form" th:action="@{/admin/users/charges/edit/{id}(id=${charge.id})}"
                                                                           method="post">
                                                                         <div class="row">
                                                                             <div class="col-md-6 px-md-1">
@@ -218,7 +218,7 @@
                                                 </div>
 
                                             </div>
-                                            <a th:href="@{/users/charges/delete/{id}(id=${charge.id})}" onclick="return confirm('Are you sure you want to delete this record?');"><button type="button" class="btn btn-danger btn-xs"><i class="tim-icons icon-simple-delete"></i></button></a>
+                                            <a th:href="@{/admin/users/charges/delete/{id}(id=${charge.id})}" onclick="return confirm('Are you sure you want to delete this record?');"><button type="button" class="btn btn-danger btn-xs"><i class="tim-icons icon-simple-delete"></i></button></a>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -53,19 +53,19 @@
         </div>
         <ul class="nav">
           <li>
-            <a href="/dashboard">
+            <a href="/admin/dashboard">
               <i class="tim-icons icon-chart-pie-36"></i>
               <p>Dashboard</p>
             </a>
           </li>
           <li class="active ">
-            <a href="/users">
+            <a href="/admin/users">
               <i class="tim-icons icon-user-run"></i>
               <p>All Users</p>
             </a>
           </li>
           <li>
-            <a href="/allExpenses">
+            <a href="/admin/allExpenses">
               <i class="tim-icons icon-money-coins"></i>
               <p>All Expenses</p>
             </a>
@@ -201,7 +201,7 @@
                                     <h5 class="title">Add Service Charge For User <span th:text="${user.firstName}"></span></h5>
                                   </div>
                                   <div class="card-body">
-                                    <form id="expenses_form" th:action="@{/users/charges/{id}(id=${user.id})}"
+                                    <form id="expenses_form" th:action="@{/admin/users/charges/{id}(id=${user.id})}"
                                            method="post">
                                       <div class="row">
                                         <div class="col-md-6 px-md-1">
@@ -234,7 +234,7 @@
                         </div>
 
                         </div>
-                        <a  th:href="@{/users/charges/{id}(id=${user.id})}"><button type="button" class="btn btn-default btn-xs"><i class="tim-icons icon-zoom-split"></i></button></a>
+                        <a  th:href="@{/admin/users/charges/{id}(id=${user.id})}"><button type="button" class="btn btn-default btn-xs"><i class="tim-icons icon-zoom-split"></i></button></a>
                       </td>
                     </tr>
                     </tbody>
@@ -257,7 +257,7 @@
                               <h5 class="title">Add Service Charge For User <span th:text="${user.firstName}"></span></h5>
                             </div>
                             <div class="card-body">
-                              <form id="add_user_form" th:action="@{/users/create}" th:object="${user}"
+                              <form id="add_user_form" th:action="@{/admin/users/create}" th:object="${user}"
                                     method="post">
                                 <div class="row">
                                   <div class="col-md-6 px-md-1">
