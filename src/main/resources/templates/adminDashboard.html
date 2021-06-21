@@ -14,11 +14,11 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <link href="/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <link href="/assets/demo/demo.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -225,6 +225,34 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card card-chart-pie">
+            <div class="card-header">
+              <h5 class="card-category">Income Split</h5>
+              <h3 class="card-title" th:text="${expenseIncomeSummary.getTotalIncome()}"><i class="tim-icons icon-bell-55 text-primary"></i> </h3>
+            </div>
+            <div class="card-body">
+              <div class="chart-area">
+                <canvas id="chargePieChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card card-chart-pie">
+            <div class="card-header">
+              <h5 class="card-category">Expense Split</h5>
+              <h3 class="card-title" th:text="${expenseIncomeSummary.getTotalExpense()}"><i class="tim-icons icon-delivery-fast text-info"></i> </h3>
+            </div>
+            <div class="card-body">
+              <div class="chart-area">
+                <canvas id="expensePieChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <footer class="footer" th:fragment="footer">
       <div class="container-fluid">
@@ -257,18 +285,19 @@
   </div>
 </div>
 <!--   Core JS Files   -->
-<script src="../assets/js/core/jquery.min.js"></script>
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="/assets/js/core/jquery.min.js"></script>
+<script src="/assets/js/core/popper.min.js"></script>
+<script src="/assets/js/core/bootstrap.min.js"></script>
+<script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<script src="/assets/js/plugins/palette.js"></script>
 <!--  Google Maps Plugin    -->
 <!-- Place this tag in your head or just before your close body tag. -->
 <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 <!-- Chart JS -->
-<script src="../assets/js/plugins/chartjs.min.js"></script>
+<script src="/assets/js/plugins/chartjs.min.js"></script>
 <!--  Notifications Plugin    -->
-<script src="../assets/js/plugins/bootstrap-notify.js"></script>
-<script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script>
+<script src="/assets/js/plugins/bootstrap-notify.js"></script>
+<script src="/assets/js/black-dashboard.min.js?v=1.0.0"></script>
 <script>
   $(document).ready(function() {
     $().ready(function() {
@@ -776,7 +805,41 @@
       });
 
 
+      ctx = document.getElementById("expensePieChart");
+      var expenseData = [[${expenseIncomeSummaryMap.values()}]];
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [[${expenseIncomeSummaryMap.keySet()}]],
+          datasets: [{
+            label: '# of Votes',
+            data: expenseData,
+            borderColor: '#000000',
+            backgroundColor: palette('tol', expenseData.length).map(function(hex) {
+              return '#' + hex;
+            })
+          }],
+          hoverOffset: 4
+        }
+      });
 
+      ctx = document.getElementById("chargePieChart");
+      var chargeData = [[${userChargesMap.values()}]];
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: [[${userChargesMap.keySet()}]],
+          datasets: [{
+            label: '# of Votes',
+            data: chargeData,
+            borderColor: '#000000',
+            backgroundColor: palette('tol', expenseData.length).map(function(hex) {
+              return '#' + hex;
+            })
+          }],
+          hoverOffset: 4
+        }
+      });
 
 
       var chart_labels = [[${months}]];
